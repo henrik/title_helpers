@@ -1,0 +1,5 @@
+- Helper method to get only the prefix, or the full_title string, for use in headers? Perhaps title() with no argument?
+- Customize delimiter?
+- Multi-level titles?
+- Handle "%s" in title= (not full_title=)?
+- Perhaps _self.title = "Full title"_ for full and _self.title << "Prefix"_ for prefix? Ties in with multi-level.
