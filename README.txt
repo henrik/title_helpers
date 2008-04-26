@@ -9,7 +9,9 @@ Show titles like
   <title><%= title("My Site") %></title>
   
 For any page with no title defined, "My Site" will be used. You can, of course,
-pull that root title from a constant, a configuration object or whatever.
+get that root title from a constant, a configuration object or whatever.
+
+The helper applies h() so you don't have to.
 
 Define titles like
 
