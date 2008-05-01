@@ -1,7 +1,8 @@
 module TitleHelpers
   
   def self.included(klass)
-    klass.helper_method :title, :title=, :full_title=, :fs_escape
+    klass.helper_method :title, :title=, :full_title=,
+                        :format_string_escape, :fs_escape
   end
   
 protected
