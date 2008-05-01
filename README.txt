@@ -33,6 +33,27 @@ using full_title:
   self.full_title = "Welcome to %s!"
   
 gives "Welcome to My Site!"
+
+Since the provided full_title is treated as a format string (with %s), remember
+to escape any non-format string percentage signs by doubling them:
+
+  self.full_title = "Welcome to %s – 100%% French bulldogs"
+  
+gives "Welcome to My Site – 100% French bulldogs".
+
+If your full_title contains user-provided data, you can use the format_string_escape
+(or fs_escape for short) helper:
+
+  user.name = "%see%my%vest%"
+  self.full_title = "#{fs_escape user.name} on %s"
+  
+When using title=, data is automatically escaped, since format strings can only be
+used with full_title:
+
+  user.name = "%see%my%vest%"
+  self.title = user.name
+  
+gives "%see%my%vest% – My Site".
   
 == Author and License
 

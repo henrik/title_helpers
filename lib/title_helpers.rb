@@ -1,7 +1,7 @@
 module TitleHelpers
   
   def self.included(klass)
-    klass.helper_method :title, :title=, :full_title=
+    klass.helper_method :title, :title=, :full_title=, :fs_escape
   end
   
 protected
@@ -11,7 +11,7 @@ protected
   end
     
   def title=(title)
-    self.full_title = "#{title} – %s"
+    self.full_title = "#{fs_escape(title)} – %s"
   end
   
   # If the helpers are used in a view, then the code runs _after_ instance variables have
@@ -21,5 +21,10 @@ protected
   def full_title=(title)
     @full_title = @template.instance_variable_set("@full_title", title)
   end
+  
+  def format_string_escape(string)
+    string.gsub('%', '%%')
+  end
+  alias_method :fs_escape, :format_string_escape
   
 end
