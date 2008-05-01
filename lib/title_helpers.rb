@@ -12,7 +12,7 @@ protected
   end
     
   def title=(title)
-    self.full_title = "#{fs_escape(title)} – %s"
+    self.full_title = "#{fs_escape title} – %s"
   end
   
   # If the helpers are used in a view, then the code runs _after_ instance variables have
