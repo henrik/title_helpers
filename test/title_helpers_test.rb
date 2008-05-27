@@ -19,7 +19,6 @@ class TitleHelpersTest < Test::Unit::TestCase
   end
   
   def assert_equal_in_controller(expected, &block)
-    t = nil
     assert_equal expected, @controller.instance_eval(&block)
   end
   
