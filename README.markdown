@@ -9,7 +9,7 @@ Show titles like
 
     <title><%= title("My Site") %></title>
   
-Where "My Site" is your base title. If no special title has been set for the current page, the returned title will just be that base title. Provide the base title from a constant, a configuration object or whatever.
+where "My Site" is your base title. If no special title has been set for the current page, the returned title will just be that base title. Provide the base title from a constant, a configuration object or whatever.
 
 Your views and controllers can set title prefixes ("Welcome – My Site") as well as override the full title ("Welcome to My Site!").
 
@@ -76,13 +76,13 @@ If your `full_title` contains user-provided data, you can use the `format_string
 When using `title=`, data is automatically escaped, since format strings can only be
 used with `full_title`:
 
-  user.name = "%see%my%vest%"
-  self.title = user.name
+    user.name = "%see%my%vest%"
+    self.title = user.name
   
 gives "%see%my%vest% – My Site".
   
-== Author and License
+## Credits and license
 
-By Henrik Nyh <http://henrik.nyh.se>.
+By [Henrik Nyh](http://henrik.nyh.se/).
 
 Free to modify and redistribute with credit.
