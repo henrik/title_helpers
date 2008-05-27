@@ -9,7 +9,7 @@ Show titles like
 
     <title><%= title("My Site") %></title>
   
-where "My Site" is your base title. If no special title has been set for the current page, the returned title will just be that base title. Provide the base title from a constant, a configuration object or whatever.
+where "My Site" is your base title. If no custom title has been set for the current page, the returned title will just be that base title. You could provide the base title from a constant, a configuration object or just put it inline like above.
 
 Your views and controllers can set title prefixes ("Welcome – My Site") as well as override the full title ("Welcome to My Site!").
 
@@ -60,7 +60,7 @@ using full_title:
   
 gives "Welcome to My Site!"
 
-Since the provided full_title is treated as a format string (with %s), remember
+Since the `full_title` is treated as a format string (with %s), remember
 to escape any non-format string percentage signs by doubling them:
 
     self.full_title = "Welcome to %s – 100%% French bulldogs"
