@@ -67,7 +67,7 @@ to escape any non-format string percentage signs by doubling them:
   
 gives "Welcome to My Site – 100% French bulldogs".
 
-If your `full_title` contains user-provided data, you can use the `format_string_escape`
+If your `full_title` contains dynamic data, you can use the `format_string_escape`
 (or `fs_escape` for short) helper:
 
     user.name = "%see%my%vest%"
