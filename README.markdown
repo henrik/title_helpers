@@ -80,6 +80,27 @@ used with `full_title`:
     self.title = user.name
   
 gives "%see%my%vest% – My Site".
+
+## Tips
+
+You can override the `title=` method in your controllers to e.g. get a common prefix:
+
+    class UsersController < ApplicationController
+
+    protected
+
+      def title=(title)
+        title = "User: #{title}"
+        super(title)
+      end
+
+    end
+    
+Now you can do
+
+    self.title = @user.name
+    
+from the controller or its views, to get titles like "User: User Name – My Site".
   
 ## Credits and license
 
