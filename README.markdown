@@ -101,7 +101,7 @@ If you never want these hints, set
 
     TitleHelpers.hints = false
     
-The recommended place for configuring the plugin is a `config/initializers/plugin_config.rb` file.
+The recommended place for configuring the plugin is a `config/initializers/plugins.rb` file.
 
 
 ## Tips
