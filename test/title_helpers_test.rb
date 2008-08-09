@@ -1,6 +1,10 @@
 require 'test/unit'
 require File.join(File.dirname(__FILE__), '../lib/title_helpers')
 
+class Rails
+  cattr_accessor :env
+end
+
 class FakeController
   def self.helper_method(*args); end
   
@@ -128,6 +132,29 @@ class TitleHelpersTest < Test::Unit::TestCase
     assert_equal_in_controller(["Welcome to My Site!", "Welcome"]) do
       self.title = "Welcome"
       self.full_title = "Welcome to %s!"
+      [title("My Site"), title]
+    end
+  end
+  
+  
+  def test_no_title_set_in_development
+    Rails.env = "development"
+    assert_equal_in_controller([TitleHelpers::HINT, TitleHelpers::HINT]) do
+      [title("My Site"), title]
+    end
+  end
+  
+  def test_no_title_set_in_development_without_hints
+    Rails.env = "development"
+    TitleHelpers.hints = false
+    assert_equal_in_controller(["My Site", ""]) do
+      [title("My Site"), title]
+    end
+  end  
+  
+  def test_no_title_set_in_non_development
+    Rails.env = "production"
+    assert_equal_in_controller(["My Site", ""]) do
       [title("My Site"), title]
     end
   end

@@ -1,6 +1,16 @@
 require "erb"
+require "rubygems"
+require "activesupport"
 
 module TitleHelpers
+  HINT = "~ PLEASE SET A TITLE ~"
+
+  # Configuration
+  mattr_writer :hints
+  @@hints = true
+  def self.hints?
+    Rails.env == "development" && @@hints
+  end
   
   def self.included(klass)
     klass.helper_method :title, :title=, :full_title=,
@@ -10,6 +20,10 @@ module TitleHelpers
 protected
 
   def title(site_title = nil)
+    if TitleHelpers.hints? && !@title && !@full_title
+      @full_title = HINT
+    end
+    
     unless site_title
       title = fs_escape(@title || @full_title)
     else

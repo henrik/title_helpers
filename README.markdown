@@ -9,8 +9,12 @@ Show titles like
 
     <title><%= title("My Site") %></title>
   
-where "My Site" is your base title. If no custom title has been set for the current page, the returned title will just be that base title. You could provide the base title from a constant, a configuration object or just put it inline like above.
+where "My Site" is your base title. If no custom title has been set for the current page, the returned title will just be that base title (except in development – see below).
 
+You can provide the base title inline, like above. You could also, of course, provide it from a constant or a configuration object that you set up in an initializer, e.g.
+
+    <title><%= title(SITE_TITLE) %></title>
+    
 Your views and controllers can set title prefixes ("Welcome – My Site") as well as override the full title ("Welcome to My Site!").
 
 You can use `title` without an argument to get just the title prefix. This is handy for headers:
@@ -53,8 +57,8 @@ If you do not want the page suffix for a particular page, do e.g.
 
     self.full_title = "Welcome"
   
-which would give "Welcome". You can use "%s" to substitute the suffix when
-using full_title:
+which would give "Welcome". You can use "%s" to substitute the base title when
+using `full_title`:
 
     self.full_title = "Welcome to %s!"
   
@@ -80,6 +84,25 @@ used with `full_title`:
     self.title = user.name
   
 gives "%see%my%vest% – My Site".
+
+
+## Title hints in development
+
+If no title has been set for a page, the base title will be shown. *In development*, however, you will see
+
+    ~ PLEASE SET A TITLE ~
+    
+This is intended to help you remember to title every page. If you really just wanted the
+base title on a page and do not want to see this helpful hint, just do
+
+    self.title = "%s"
+    
+If you never want these hints, set
+
+    TitleHelpers.hints = false
+    
+The recommended place for configuring the plugin is a `config/initializers/plugin_config.rb` file.
+
 
 ## Tips
 
