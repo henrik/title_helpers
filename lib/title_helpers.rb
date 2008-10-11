@@ -13,7 +13,7 @@ module TitleHelpers
   end
   
   def self.included(klass)
-    klass.helper_method :title, :title=, :full_title=,
+    klass.helper_method :title, :title=, :full_title=, :title!,
                         :format_string_escape, :fs_escape
   end
   
@@ -42,6 +42,10 @@ protected
   
   def full_title=(title)
     @full_title = @template.instance_variable_set("@full_title", title)
+  end
+  
+  def title!
+    self.full_title=("%s")
   end
   
   def format_string_escape(string)
