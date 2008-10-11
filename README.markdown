@@ -95,7 +95,7 @@ If no title has been set for a page, the base title will be shown. *In developme
 This is intended to help you remember to title every page. If you really just wanted the
 base title on a page and do not want to see this helpful hint, just do
 
-    self.title = "%s"
+    self.full_title = "%s"
     
 If you never want these hints, set
 
