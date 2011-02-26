@@ -1,6 +1,6 @@
 require "erb"
 require "rubygems"
-require "activesupport"
+require "active_support"
 
 module TitleHelpers
   HINT = "~ PLEASE SET A TITLE ~"
