@@ -96,12 +96,6 @@ This is intended to help you remember to title every page. If you really just wa
 base title on a page and do not want to see this helpful hint, just do
 
     self.title!
-    
-If you never want these hints, set
-
-    TitleHelpers.hints = false
-    
-The recommended place for configuring the plugin is a `config/initializers/plugins.rb` file.
 
 
 ## Tips

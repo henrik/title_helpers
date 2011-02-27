@@ -5,13 +5,6 @@ require "active_support"
 module TitleHelpers
   HINT = "~ PLEASE SET A TITLE ~"
 
-  # Configuration
-  mattr_writer :hints
-  @@hints = true
-  def self.hints?
-    Rails.env == "development" && @@hints
-  end
-  
   def self.included(klass)
     klass.helper_method :title, :title=, :full_title=, :title!,
                         :format_string_escape, :fs_escape
@@ -20,7 +13,7 @@ module TitleHelpers
 protected
 
   def title(site_title = nil)
-    if TitleHelpers.hints? && !@title && !@full_title
+    if Rails.env.development? && !@title && !@full_title
       @full_title = HINT
     end
     

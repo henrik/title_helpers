@@ -2,31 +2,39 @@ require 'test/unit'
 require File.join(File.dirname(__FILE__), '../lib/title_helpers')
 
 class Rails
-  cattr_accessor :env
+  class << self
+    attr_accessor :is_dev
+  end
+
+  def self.env
+    env = Object.new
+    def env.development?() Rails.is_dev end
+    env
+  end
 end
 
 class FakeController
   def self.helper_method(*args); end
-  
+
   def initialize
     @template = Object.new
   end
-  
+
   include TitleHelpers
 end
 
 
 class TitleHelpersTest < Test::Unit::TestCase
-  
+
   def setup
     @controller = FakeController.new
   end
-  
+
   def assert_equal_in_controller(expected, &block)
     assert_equal expected, @controller.instance_eval(&block)
   end
-  
-  
+
+
   def test_format_string_escape
     assert_equal_in_controller("x") { format_string_escape("x") }
     assert_equal_in_controller("%%s") { format_string_escape("%s") }
@@ -46,21 +54,21 @@ class TitleHelpersTest < Test::Unit::TestCase
       title
     end
   end
-  
+
   def test_title_with_format_string_without_suffix
     assert_equal_in_controller("%s") do
       self.title = "%s"
       title
     end
   end
-  
+
   def test_title_with_format_string_with_suffix
     assert_equal_in_controller("%s – My Site") do
       self.title = "%s"
       title("My Site")
     end
   end
-  
+
   def test_title_escapes_html
     assert_equal_in_controller("&lt;b&gt;ad") do
       self.title = "<b>ad"
@@ -68,7 +76,7 @@ class TitleHelpersTest < Test::Unit::TestCase
     end
   end
 
-    
+
 
   def test_full_title_without_format_string
     assert_equal_in_controller("Welcome!") do
@@ -83,7 +91,7 @@ class TitleHelpersTest < Test::Unit::TestCase
       title("My Site")
     end
   end
-  
+
   def test_full_title_without_suffix_without_format_string
     assert_equal_in_controller("Welcome") do
       self.full_title = "Welcome"
@@ -97,7 +105,7 @@ class TitleHelpersTest < Test::Unit::TestCase
       title
     end
   end
-  
+
   def test_full_title_with_percentage_sign_and_suffix
     assert_raises(ArgumentError) do
       assert_equal_in_controller("100% French bulldogs") do
@@ -112,22 +120,22 @@ class TitleHelpersTest < Test::Unit::TestCase
       end
     end
   end
-  
+
   def test_full_title_with_percentage_sign_and_no_suffix
     assert_equal_in_controller("100% French bulldogs") do
       self.full_title = "100% French bulldogs"
       title
     end
   end
-  
+
   def test_full_title_escapes_html
     assert_equal_in_controller("&lt;b&gt;ad") do
       self.full_title = "<b>ad"
       title("My Site")
     end
   end
-  
-  
+
+
   def test_combining_title_and_full_title
     assert_equal_in_controller(["Welcome to My Site!", "Welcome"]) do
       self.title = "Welcome"
@@ -135,25 +143,17 @@ class TitleHelpersTest < Test::Unit::TestCase
       [title("My Site"), title]
     end
   end
-  
-  
+
+
   def test_no_title_set_in_development
-    Rails.env = "development"
+    Rails.is_dev = true
     assert_equal_in_controller([TitleHelpers::HINT, TitleHelpers::HINT]) do
       [title("My Site"), title]
     end
   end
-  
-  def test_no_title_set_in_development_without_hints
-    Rails.env = "development"
-    TitleHelpers.hints = false
-    assert_equal_in_controller(["My Site", ""]) do
-      [title("My Site"), title]
-    end
-  end  
-  
+
   def test_no_title_set_in_non_development
-    Rails.env = "production"
+    Rails.is_dev = false
     assert_equal_in_controller(["My Site", ""]) do
       [title("My Site"), title]
     end
