@@ -8,11 +8,12 @@ module TitleHelpers
   HINT = "~ PLEASE SET A TITLE ~"
 
   def self.included(klass)
-    klass.helper_method :title, :title=, :full_title=, :title!,
-                        :format_string_escape, :fs_escape
+    klass.helper_method :title, :title=,
+      :full_title=, :title!,
+      :format_string_escape, :fs_escape
   end
 
-protected
+private
 
   def title(site_title = nil)
     if Rails.env.development? && !@title && !@full_title
@@ -24,6 +25,7 @@ protected
     else
       title = @full_title || (@title && "#{fs_escape @title} – %s") || "%s"
     end
+
     ERB::Util.h(title % site_title)
   end
 
@@ -47,5 +49,4 @@ protected
     string.to_s.gsub('%', '%%')
   end
   alias_method :fs_escape, :format_string_escape
-
 end
