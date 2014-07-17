@@ -50,3 +50,5 @@ private
   end
   alias_method :fs_escape, :format_string_escape
 end
+
+ActionController::Base.send(:include, TitleHelpers)
